@@ -1,1 +1,43 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>append vs appendChild</title>
+</head>
+<body>
+
+</body>
+<script>
+    // Differences
+
+    // 1. append accepts Node objects and DOMStrings while .appendChild accepts only Node objects
+    const parent = document.createElement('div');
+    const child = document.createElement('p');
+
+    // Appending Node Objects
+    parent.append(child) // Works fine
+    parent.appendChild(child) // Works fine
+    // Appending DOMStrings
+    parent.append('Hello world') // Works fine
+    // parent.appendChild('Hello world') // Throws error
+
+    // 2.append does not have a return value while .appendChild returns the appended Node object
+    const parent2 = document.createElement('div');
+    const child2 = document.createElement('p');
+    const appendValue = parent2.append(child2);
+    console.log(appendValue) // undefined
+    const appendChildValue = parent2.appendChild(child2);
+    console.log(appendChildValue) // <p><p>
+
+    // 3.append allows you to add multiple items while appendChild allows only a single item
+    const parent3 = document.createElement('div');
+    const child3 = document.createElement('p');
+    const childTwo = document.createElement('p');
+    parent3.append(child3, childTwo, 'Hello world'); // Works fine
+    parent3.appendChild(child3, childTwo, 'Hello world');
+    // Works fine, but adds the first element and ignores the rest
+
+    document.body.append(parent, parent2, parent3);
+
+</script>
+</html>
